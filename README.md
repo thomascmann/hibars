@@ -29,7 +29,7 @@ hibars2({
 
 If using the hibars3 function, you must also include "factor3", and if using the hibars4 function, you must also incldue "factor4".
 
-####About the parameters
+####*About the parameters*
 
 **location:** Specifies a location (e.g., a \<div\>) where the figure should be appended. Currently, this must be an **element id.**
 
@@ -82,7 +82,7 @@ The CSV data file should have a list of headers in the first row. There should b
     Black Room,Experimental,130,12
 
 ##Demo Package
-If you download the contents of the "demo_package" folder and place them as-is on a server, the index.html page will give you some example figures with Hibars.
+If you download the contents of the "demo_package" folder and place them as-is on a server, the index.html page will show some example figures with Hibars.
   
 ##Updates
 
