@@ -80,6 +80,9 @@ The CSV data file should have a list of headers in the first row. There should b
     White Room,Experimental,43,22
     Black Room,Control,-40,10
     Black Room,Experimental,130,12
+
+##Demo Package
+If you download the contents of the "demo_package" folder and place them as-is on a server, the index.html page will give you some example figures with Hibars.
   
 ##Updates
 
