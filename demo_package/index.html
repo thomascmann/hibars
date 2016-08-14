@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Figure Demo</title>
+<meta charset="UTF-8"/>
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<script type='text/javascript' src="colorbrewer.js"></script>
+<script type='text/javascript' src="//d3js.org/d3.v3.min.js"></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+<script>window.jQuery || document.write('<script src="jquery-1.10.2.min.js">\x3C/script>')</script>
+<script>window.d3 || document.write('<script src="d3.min.js">\x3C/script>')</script>
+
+<script type='text/javascript' src="hibars-1.1.2.min.js"></script>
+
+
+<script>
+
+$(document).ready(function(){
+
+	hibars2({
+		location: 'figure1', 
+		datafile: 'data1.csv', 
+		dependent: 'Dependent Variable', 
+		factor1: 'Room', 
+		factor2: 'Condition'
+	});
+
+	hibars3({
+		location: 'figure2', 
+		datafile: 'data2.csv', 
+		dependent: 'Dependent Variable', 
+		factor1: 'Room', 
+		factor2: 'Condition', 
+		factor3: 'Time', 
+		chartwidth: 1000,
+		chartheight: 800,
+		colorscheme: colorbrewer.Blues
+	});
+
+	hibars4({
+		location: 'figure3', 
+		datafile: 'data3.csv', 
+		dependent: 'Dependent Variable', 
+		factor1: 'Room', 
+		factor2: 'Condition', 
+		factor3: 'Time', 
+		factor4: 'Film Type',
+		chartwidth: 800,
+		chartheight: 500,
+		colorscheme: colorbrewer.Reds
+	});
+});
+
+</script>
+</head>
+<body>
+	<div id="container">
+		<i>Note: These interactive figures require a modern browser compatible with SVG.</i>
+		<br />
+		<br />
+		<div id="figure1">
+			<p class="heading">Demo Interactive Figure with Two Factors</p>
+		</div>
+		<div id="figure2">
+			<p class="heading">Demo Interactive Figure with Three Factors</p>
+		</div>
+		<div id="figure3">
+			<p class="heading">Demo Interactive Figure with Four Factors</p>
+		</div>
+		<br /><br /><br />
+		<i>Figures created using <a href="http://d3js.org/" style="color:grey;">D3.js</a></i>
+		<br />
+	</div>
+</body>
+</html>

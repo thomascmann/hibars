@@ -1,0 +1,27 @@
+body
+{
+	margin: 0 0 0 0;
+	padding: 20px;
+	background: white;
+	font-size: 16px;
+	font-family: 'Droid Serif', Georgia, Times, serif;
+	line-height:25px;
+	color: black;
+	background-color:white;
+	text-align:center;
+}
+
+#container
+{
+	margin: 0 auto;
+	position:relative;
+	width:1000px;
+}
+
+.heading
+{
+	background-color:rgb(192,192,192);
+	color:white;
+	font-size:20px;
+	border-top:2px solid black;
+}
