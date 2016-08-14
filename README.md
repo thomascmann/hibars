@@ -66,7 +66,7 @@ var colorpalettes = {defaultcolors: {
   }
 };
 ```
-This allows for the creation of a figure with up to 10 levels of the lowest factor in the hierarchy. See the <a href="https://github.com/axismaps/colorbrewer/">colorbrewer.js palettes for more examples.</a> Hibars will attempt to fall back on the defaults if you specify an incompatible color palette. **Currently, the default colors include only 10 colors.**
+This allows for the creation of a figure with up to 10 levels of the lowest factor in the hierarchy. See the <a href="https://github.com/axismaps/colorbrewer/">colorbrewer.js palettes for more examples.</a> Hibars will attempt to fall back on the defaults if you specify an incompatible color palette. *Currently, the default colors include only 10 colors.*
 
 ###Structure of CSV file
 The CSV data file should have a list of headers in the first row. There should be one column for the dependent variable, one for the size of the +/- error bars (*this must ALWAYS be called "stderror"*), and one column per factor. In each factor column, the values reflect the level of the factor. Each row must have a value in each column. For example:
