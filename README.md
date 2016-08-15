@@ -12,7 +12,7 @@ You can run Hibars locally or load from the CDN. Minified final versions are in 
 
     <script src="https://cdn.rawgit.com/thomascmann/hibars/master/dist/latest/hibars-latest.min.js"></script>
 
-You must also load D3.js to use Hibars. Currently, D3 version 3 is required:
+**You must also load D3.js to use Hibars. You must load it on the page before loading Hibars. Currently, D3 version 3 is required:**
 
     <script src="https://d3js.org/d3.v3.js"></script>
 
