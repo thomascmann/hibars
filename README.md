@@ -12,6 +12,10 @@ You can run Hibars locally or load from the CDN. Minified final versions are in 
 
     <script src="https://cdn.rawgit.com/thomascmann/hibars/master/dist/latest/hibars-latest.min.js"></script>
 
+You must also load D3.js to use Hibars. Currently, D3 version 3 is required:
+
+    <script src="https://d3js.org/d3.v3.js"></script>
+
 Hibars creates figures using the **hibars2**, **hibars3**, and **hibars4** functions, depending on whether your data are indexed by two, three, or four factors. You must pass an *object* to this function containing keys and values that specify the data file to use, the location on the page where the figure should be placed, the factors, the dependent variable, and some optional parameters for customization:
 
 ```javascript
