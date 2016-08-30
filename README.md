@@ -28,7 +28,7 @@ hibars2({
 	chartwidth: 1000,                        	//optional parameter
 	chartheight: 800,                        	//optional parameter
 	colorscheme: colorpalettes.defaultcolors, 	//optional parameter
-	auto_size: "no"					//optional parameter
+	auto_size: "no"								//optional parameter
 });
 ```
 
