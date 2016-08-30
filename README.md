@@ -12,9 +12,9 @@ You can run Hibars locally or load from the CDN. Minified final versions are in 
 
     <script src="https://cdn.rawgit.com/thomascmann/hibars/master/hibars.min.js"></script>
 
-**You must also load D3.js to use Hibars. You must load it on the page before loading Hibars. Currently, D3 version 3 is required:**
+**You must also load D3.js to use Hibars. You must load it on the page before loading Hibars. D3 version 4 is required:**
 
-    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
 
 Hibars creates figures using the **hibars2**, **hibars3**, and **hibars4** functions, depending on whether your data are indexed by two, three, or four factors. You must pass an *object* to this function containing keys and values that specify the data file to use, the location on the page where the figure should be placed, the factors, the dependent variable, and some optional parameters for customization:
 
@@ -25,9 +25,10 @@ hibars2({
 	dependent: 'Dependent Variable', 
 	factor1: 'Room', 
 	factor2: 'Condition', 
-	chartwidth: 1000,                        //optional parameter
-	chartheight: 800,                        //optional parameter
-	colorscheme: colorpalettes.defaultcolors //optional parameter
+	chartwidth: 1000,                        	//optional parameter
+	chartheight: 800,                        	//optional parameter
+	colorscheme: colorpalettes.defaultcolors, 	//optional parameter
+	auto_size: "no"					//optional parameter
 });
 ```
 
@@ -71,6 +72,8 @@ var colorpalettes = {defaultcolors: {
 };
 ```
 This allows for the creation of a figure with up to 10 levels of the lowest factor in the hierarchy. See the <a href="https://github.com/axismaps/colorbrewer/">colorbrewer.js palettes for more examples.</a> Hibars will attempt to fall back on the defaults if you specify an incompatible color palette. *Currently, the default colors include only 10 colors.*
+
+**auto_size (*optional*):** "yes" or "no", default is "no" if unspecified. Determines whether to automatically scale the size of the chart to fit the chart location. If "yes", the chart will readjust if the dimensions of its parent element change. If "yes", the ```chartwidth``` and ```chartheight``` parameters refer to the "initial" size from which the chart is scaled up or down. *Larger values will generally render better; scaling up small charts can produce distortions.* Aspect ratio is maintained.
 
 ###Structure of CSV file
 The CSV data file should have a list of headers in the first row. There should be one column for the dependent variable, one for the size of the +/- error bars (*this must ALWAYS be called "stderror"*), and one column per factor. In each factor column, the values reflect the level of the factor. Each row must have a value in each column. For example:
