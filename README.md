@@ -6,6 +6,8 @@ Hibars creates interactive SVG bar charts from CSV files containing the data to 
 
 For examples, see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/">here</a>, <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/study3">here</a>, and <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/demo_package/">here</a>.
 
+<br>For a resizable version using auto_size: "yes", see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/demo_package/autosize">here</a>.
+
 ##Usage
 
 You can run Hibars locally or load from the CDN. Minified final versions are in the "dist" folder (most recent and older). The script can also be loaded from the rawgit CDN. For example, to load the most recent version, include the follow tag in your html header:
