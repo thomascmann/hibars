@@ -1,6 +1,10 @@
 # Changelog
 
-## v. 1.1.4
+## v. 1.2.2
+
+Bug fix with y-scale
+
+## v. 1.2.1
 
 Updated to D3 version 4. 
 <br>Added ability to auto-size figure with a new optional parameter.
