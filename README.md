@@ -10,11 +10,11 @@ For examples, see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tma
 
 ##Usage
 
-You can run Hibars locally or load from the CDN. Minified final versions are in the "dist" folder (most recent and older). The script can also be loaded from rawgit. For example, to load version 1.2.2, include the follow tag in your html header:
+You can download Hibars and host it locally, or link from the CDN via rawgit. Minified final versions are in the "dist" folder (most recent and older). The current version, 1.2.2, can be loaded externally by including the follow tag in your html header:
 
     <script src="https://cdn.rawgit.com/thomascmann/hibars/v1.2.2/hibars.min.js"></script>
 
-**You must also load D3.js to use Hibars. You must load it on the page before loading Hibars. D3 version 4 is required:**
+**Hibars requires D3 version 4:**
 
     <script src="https://d3js.org/d3.v4.js"></script>
 
