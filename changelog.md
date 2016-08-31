@@ -4,6 +4,7 @@
 
 Updated to D3 version 4. 
 <br>Added ability to auto-size figure with a new optional parameter.
+<br>Fixed text sizing issue in IE and (rarely) Safari.
 
 ## v. 1.1.3
 
