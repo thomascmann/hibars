@@ -197,7 +197,7 @@ function hibars2(settings){
 
 	    svg.append("g")
 	        .attr("class", "y axis")
-	        .call(yAxis.tickFormat(d3.format(".0s")));
+	        .call(yAxis);
 
 	    svg.append("text")
 	        .attr("transform", "rotate(-90)")
@@ -1191,7 +1191,7 @@ function hibars3(settings){
 
     svg.append("g")
         .attr("class", "y axis")
-        .call(yAxis.tickFormat(d3.format(".0s")));
+        .call(yAxis);
 
     svg.append("text")
         .attr("transform", "rotate(-90)")
@@ -2282,7 +2282,7 @@ function hibars4(settings){
 
     svg.append("g")
         .attr("class", "y axis")
-        .call(yAxis.tickFormat(d3.format(".0s")));
+        .call(yAxis);
 
     svg.append("text")
         .attr("transform", "rotate(-90)")
