@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css" type="text/css">
 
 <script type='text/javascript' src="https://cdn.rawgit.com/axismaps/colorbrewer/master/export/colorbrewer.js"></script>
-<script type='text/javascript' src="//d3js.org/d3.v3.min.js"></script>
+<script type='text/javascript' src="//d3js.org/d3.v4.min.js"></script>
 <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
 <script>window.jQuery || document.write('<script src="jquery-1.10.2.min.js">\x3C/script>')</script>
 <script>window.d3 || document.write('<script src="d3.min.js">\x3C/script>')</script>
@@ -25,7 +25,8 @@ $(document).ready(function(){
 		datafile: 'data1.csv', 
 		dependent: 'Dependent Variable', 
 		factor1: 'Room', 
-		factor2: 'Condition'
+		factor2: 'Condition',
+		auto_size: 'yes'
 	});
 
 	hibars3({
@@ -50,7 +51,8 @@ $(document).ready(function(){
 		factor4: 'Film Type',
 		chartwidth: 800,
 		chartheight: 500,
-		colorscheme: colorbrewer.Reds
+		colorscheme: colorbrewer.Reds,
+		auto_size: 'yes'
 	});
 });
 
