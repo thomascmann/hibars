@@ -1,12 +1,12 @@
 # hibars
-A javascript tool for creating hierarchical, interactive bar charts, just for fun. Built with <a href="https://d3js.org/">D3.js</a>. <br>Useful for plotting the means and standard errors from factorial ANOVAs.
+A javascript tool for creating hierarchical, interactive bar charts, just for fun. Built with <a href="https://d3js.org/">D3.js</a>. <br>Useful for plotting the means and standard errors from factorial ANOVAs with two, three, or four factors.
 
 ##About
 Hibars creates interactive SVG bar charts from CSV files containing the data to be plotted. The figures are "hierarchical" in that multiple factors can be specified on the X-axis, in a customizable hierarchy (see "Usage"). Each figure is created by a single function call, and is inserted into the page at a specified location.
 
 For examples, see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/">here</a>, <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/study3">here</a>, and <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/demo_package/">here</a>.
 
-<br>For a resizable version using auto_size: "yes", see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/demo_package/autosize">here</a>.
+<br>For a resizable version using auto_size: "yes", see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/demo_package/autosize">here</a> (try resizing the window).
 
 ##Usage
 
