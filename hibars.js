@@ -1148,7 +1148,7 @@ function hibars3(settings){
     
     phasebuttonheight = Math.min(0.05*height, (height - data[0]['values'][0]['values'][0]['values'].length*legendboxsize*1.1)/16, 
     	(height - data[0]['values'][0]['values'].length*legendboxsize*1.1)/16, 
-    	(height - data[0]['values'].length*legendboxsize*1.1)/16);
+    	(height - data[0]['values'].length*legendboxsize*1.1)/16, 20);
 
     color = d3.scaleOrdinal()
       .range((function(){
