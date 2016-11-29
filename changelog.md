@@ -1,5 +1,13 @@
 # Changelog
 
+## v. 1.3.1
+
+Added new settings to show/hide controls, change the y-reference value from 0 (default), specify different variable name in the data file for the error bars, and use custom low and high endpoints for error bars.
+<br>Fixed centering of text inside tooltips.
+<br>Adjusted sizing of text throughout figures.
+<br>Added abbreviations for large values on y-axis.
+<br>Various other improvements and adjustments throughout.
+
 ## v. 1.2.2
 
 Bug fix with y-scale
