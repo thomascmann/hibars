@@ -1,4 +1,5 @@
-# hibars
+# hibars  
+###v.1.3.1
 A javascript tool for creating hierarchical, interactive bar charts, just for fun. Built with <a href="https://d3js.org/">D3.js</a>. <br>Useful for plotting the means and standard errors from factorial ANOVAs with two, three, or four factors.
 
 ##About
@@ -10,31 +11,27 @@ For examples, see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tma
 
 ##Usage
 
-You can download Hibars and host it locally, or link from the CDN via rawgit. Minified final versions are in the "dist" folder (most recent and older). The current version, 1.2.2, can be loaded externally by including the follow tag in your html header:
+You can download Hibars and host it locally, or link from the CDN via rawgit. Minified final versions are in the "dist" folder (most recent and older). The latest version, 1.3.1, can be loaded externally by including the follow tag in your html header:
 
-    <script src="https://cdn.rawgit.com/thomascmann/hibars/v1.2.2/hibars.min.js"></script>
+    <script src="https://cdn.rawgit.com/thomascmann/hibars/v1.3.1/hibars.min.js"></script>
 
 **Hibars requires D3 version 4:**
 
     <script src="https://d3js.org/d3.v4.js"></script>
 
-Hibars creates figures using the **hibars2**, **hibars3**, and **hibars4** functions, depending on whether your data are indexed by two, three, or four factors. You must pass an *object* to this function containing keys and values that specify the data file to use, the location on the page where the figure should be placed, the factors, the dependent variable, and some optional parameters for customization:
+Hibars creates figures of means and error bars using the **hibars** function, accommodating data nested within two, three, or four factors. You must pass an *object* to this function containing keys and values that specify the data file to use, the location on the page where the figure should be placed, the factors, the dependent variable, and some optional parameters for customization:
 
 ```javascript
-hibars2({
+hibars({
 	location: 'figure_location', 
 	datafile: 'data.csv', 
 	dependent: 'Dependent Variable', 
 	factor1: 'Room', 
-	factor2: 'Condition', 
-	chartwidth: 1000,                        	//optional parameter
-	chartheight: 800,                        	//optional parameter
-	colorscheme: colorpalettes.defaultcolors, 	//optional parameter
-	auto_size: "no"								//optional parameter
+	factor2: 'Condition'
 });
 ```
 
-If using the hibars3 function, you must also include "factor3", and if using the hibars4 function, you must also incldue "factor4".
+If you have three factors, you must also include "factor3", and if you have four factors, you must also incldue "factor4".
 
 ####*About the parameters*
 
@@ -48,9 +45,9 @@ If using the hibars3 function, you must also include "factor3", and if using the
 
 **factor2:** The name of the second factor. Must match a value in the header row of the CSV file.
 
-**factor3:** The name of the third factor (**hibars3** and **hibars4** only). Must match a value in the header row of the CSV file.
+**factor3:** The name of the third factor (if you have 3 or 4 factors). Must match a value in the header row of the CSV file.
 
-**factor4:** The name of the fourth factor (**hibars4** only). Must match a value in the header row of the CSV file.
+**factor4:** The name of the fourth factor (if you have 4 factors). Must match a value in the header row of the CSV file.
 
 **chartwidth (*optional*):** The width of the figure, in pixels. If not specified, default is 800.
 
@@ -69,16 +66,26 @@ var colorpalettes = {defaultcolors: {
   7:["#5DA5DA","#F15854","#60BD68","#845C59","#FAA43A","#41977E","#F17CB0"],
   8:["#5DA5DA","#F15854","#60BD68","#845C59","#FAA43A","#41977E","#F17CB0","#DECF3F"],
   9:["#5DA5DA","#F15854","#60BD68","#845C59","#FAA43A","#41977E","#F17CB0","#DECF3F","#B276B2"],
-  10:["#5DA5DA","#F15854","#60BD68","#845C59","#FAA43A","#41977E","#F17CB0","#DECF3F","#B276B2","#C2D580"]
+  10:["#5DA5DA","#F15854","#60BD68","#845C59","#FAA43A","#41977E","#F17CB0","#DECF3F","#B276B2","#C2D580"],
+  11:["#5DA5DA","#F15854","#60BD68","#845C59","#FAA43A","#41977E","#F17CB0","#DECF3F","#B276B2","#C2D580","4D4D4D"],
+  12:["#5DA5DA","#F15854","#60BD68","#845C59","#FAA43A","#41977E","#F17CB0","#DECF3F","#B276B2","#C2D580","4D4D4D","#673333"]
   }
 };
 ```
-This allows for the creation of a figure with up to 10 levels of the lowest factor in the hierarchy. See the <a href="https://github.com/axismaps/colorbrewer/">colorbrewer.js palettes for more examples.</a> Hibars will attempt to fall back on the defaults if you specify an incompatible color palette. *Currently, the default colors include only 10 colors.*
+This allows for the creation of a figure with up to 12 levels of the lowest factor in the hierarchy. See the <a href="https://github.com/axismaps/colorbrewer/">colorbrewer.js palettes for more examples.</a> Hibars will attempt to fall back on the defaults if you specify an incompatible color palette. *Currently, the default colors include only 12 colors.*
 
 **auto_size (*optional*):** "yes" or "no", default is "no" if unspecified. Determines whether to automatically scale the size of the chart to fit the chart location. If "yes", the chart will readjust if the dimensions of its parent element change. If "yes", the ```chartwidth``` and ```chartheight``` parameters refer to the "initial" size from which the chart is scaled up or down. *Larger values will generally render better; scaling up small charts can produce distortions.* Aspect ratio is maintained.
 
+**controls (*optional*):** "yes" or "no", default is "yes" if unspecified. Determines whether x-axis controls (flips and hierarchy shifts) are shown (**yes**) or not shown (**no**).
+
+**y_reference (*optional*):** Must be numerical, default is 0. Sets the value from which bars extend to their values. 
+
+**errors (*optional*):** Sets the name of the column in the CSV data file containing the error bar lengths, if different from "stderror." Defaults to "stderror".
+
+**errorLO** and **errorHI (*optional*):** Sets error bars with custom low and high endpoints, overriding the **errors** parameter. Allows the user to achieve different lengths for the low and high portions of the error bars. (Both **errorLO** and **errorHI** must be present for this to be honored.)
+
 ###Structure of CSV file
-The CSV data file should have a list of headers in the first row. There should be one column for the dependent variable, one for the size of the +/- error bars (*this must ALWAYS be called "stderror"*), and one column per factor. In each factor column, the values reflect the level of the factor. Each row must have a value in each column. For example:
+The CSV data file should have a list of headers in the first row. There should be one column for the dependent variable, one for the size of the +/- error bars (*this must ALWAYS be called "stderror" unless a different name is provided in the **errors** parameter*), and one column per factor. In each factor column, the values reflect the level of the factor. Each row must have a value in each column. For example:
 
     Room,Condition,Dependent Variable,stderror
     Blue Room,Control,46,11
