@@ -20,37 +20,41 @@
 
 $(document).ready(function(){
 
-	hibars2({
+	hibars({
 		location: 'figure1', 
 		datafile: 'data1.csv', 
-		dependent: 'Dependent Variable', 
+		dependent: 'Endurance (milliseconds)', 
 		factor1: 'Room', 
-		factor2: 'Condition',
-		auto_size: 'no'
+		factor2: 'Condition'
 	});
 
-	hibars3({
+	hibars({
 		location: 'figure2', 
 		datafile: 'data2.csv', 
-		dependent: 'Dependent Variable', 
+		dependent: 'Favorability Ratings', 
 		factor1: 'Room', 
 		factor2: 'Condition', 
 		factor3: 'Time', 
+		errors: 'errorbars',
+		//Optional parameters:
 		chartwidth: 1000,
 		chartheight: 800,
-		colorscheme: colorbrewer.Blues
+		colorscheme: colorbrewer.PuOr,
+		controls: 'yes'
 	});
 
-	hibars4({
+	hibars({
 		location: 'figure3', 
 		datafile: 'data3.csv', 
-		dependent: 'Dependent Variable', 
+		dependent: 'Happiness', 
 		factor1: 'Room', 
 		factor2: 'Condition', 
 		factor3: 'Time', 
 		factor4: 'Film Type',
-		chartwidth: 800,
-		chartheight: 500,
+		errors: 'stderror',
+		//Optional parameters:
+		chartwidth: 900,
+		chartheight: 600,
 		colorscheme: colorbrewer.Reds,
 		auto_size: 'no'
 	});
