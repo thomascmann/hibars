@@ -21,13 +21,34 @@ You can download Hibars and host it locally, or link from the CDN via rawgit. Mi
 
 Hibars creates figures of means and error bars using the **hibars** function, accommodating data nested within two, three, or four factors. You must pass an *object* to this function containing keys and values that specify the data file to use, the location on the page where the figure should be placed, the factors, the dependent variable, and some optional parameters for customization:
 
+Simple:
+
 ```javascript
 hibars({
 	location: 'figure_location', 
 	datafile: 'data.csv', 
-	dependent: 'Dependent Variable', 
+	dependent: 'Endurance (milliseconds)', 
 	factor1: 'Room', 
 	factor2: 'Condition'
+});
+```
+
+Fully specified:
+
+```javascript
+hibars({
+	location: 'figure_location', 
+	datafile: 'data.csv', 
+	dependent: 'Endurance (milliseconds)', 
+	factor1: 'Room', 
+	factor2: 'Condition',
+	chartwidth: 800px,
+	chartheight: 500px,
+	colorscheme: colorpalettes.defaultcolors,
+	auto_size: 'no',
+	controls: 'yes',
+	y_reference: 0,
+	errors: 'stderror'
 });
 ```
 
