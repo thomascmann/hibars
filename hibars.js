@@ -229,7 +229,6 @@ function hibars(settings){
         	var sizeval = d3.min(sizes);
         }
        	svg.selectAll(relevantclass).style("font-size",sizeval + "px");
-       	console.log(sizeval);
        	return sizeval;
   	}
 
