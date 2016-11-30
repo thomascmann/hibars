@@ -1,5 +1,9 @@
 # Changelog
 
+## v. 1.3.3
+
+Fixed small bug
+
 ## v. 1.3.2
 
 Adjusted position of y-axis label
