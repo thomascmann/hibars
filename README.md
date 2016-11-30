@@ -1,5 +1,5 @@
 # hibars  
-###v.1.3.1
+###v.1.3.2
 A javascript tool for creating hierarchical, interactive bar charts, just for fun. Built with <a href="https://d3js.org/">D3.js</a>. <br>Useful for plotting the means and standard errors from factorial ANOVAs with two, three, or four factors.
 
 ##About
@@ -70,9 +70,9 @@ If you have three factors, you must also include "factor3", and if you have four
 
 **factor4:** The name of the fourth factor (if you have 4 factors). Must match a value in the header row of the CSV file.
 
-**chartwidth (*optional*):** The width of the figure, in pixels. If not specified, default is 800.
+**chartwidth (*optional*):** The width of the figure, in pixels. If not specified, default is 800. *Figure may suffer distortions at small sizes.*
 
-**chartheight (*optional*):** The height of the figure, in pixels. If not specified, default is 500.
+**chartheight (*optional*):** The height of the figure, in pixels. If not specified, default is 500. *Figure may suffer distortions at small sizes.*
 
 **colorscheme (*optional*):** The colorscheme to use in generating the bars in the chart. If not specified, a default colorscheme is used. If specified, the value should refer to an object with numerical keys, with arrays of colors as the values. The keys indicate the number of levels of the factor used in the chart's legend (the lowest in the hierarchry). The number of colors in the array should match the key value. For example, the default colors (colorpalettes.defaultcolors) are coded as:
 
