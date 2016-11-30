@@ -1,5 +1,11 @@
 # Changelog
 
+## v. 1.3.2
+
+Adjusted position of y-axis label
+<br>Adjusted font sizing of y-axis label and x-axis labels
+<br>Fixed error bars and bar position bugs with small figures
+
 ## v. 1.3.1
 
 Added new settings to show/hide controls, change the y-reference value from 0 (default), specify different variable name in the data file for the error bars, and use custom low and high endpoints for error bars.
