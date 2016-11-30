@@ -1,5 +1,5 @@
 # hibars  
-###v.1.3.2
+###v.1.3.3
 A javascript tool for creating hierarchical, interactive bar charts, just for fun. Built with <a href="https://d3js.org/">D3.js</a>. <br>Useful for plotting the means and standard errors from factorial ANOVAs with two, three, or four factors.
 
 ##About
