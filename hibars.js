@@ -41,7 +41,11 @@ function hibars(settings){
   	var auto_size = settings.auto_size || "no";
   	var show_controls = settings.controls || "yes";
   	var y_reference = settings.y_reference || 0;
-  	var errors = settings.errors || "stderror";
+  	var show_errors = settings.show_errors || "yes";
+  	if (show_errors == "yes")
+  	{
+  		var errors = settings.errors || "stderror";
+  	}
 
   	if ((settings.errorLO) && (settings.errorHI)) 
   	{
@@ -245,12 +249,12 @@ function hibars(settings){
 		    	{
 		    		for (j=0; j<data[i].values.length; j++)
 		    		{
-		    			if ((errorLO) && (errorHI))
+		    			if ((errorLO) && (errorHI) && (errors))
 		    			{
 		    				data[i].values[j].values[0].errorHI = +data[i].values[j].values[0][errorHI];
 		    				data[i].values[j].values[0].errorLO = +data[i].values[j].values[0][errorLO];
 		    			}
-		    			else
+		    			else if (errors)
 		    			{
 			    			data[i].values[j].values[0].errorHI = +data[i].values[j].values[0][DependentVariable] + +data[i].values[j].values[0][errors];
 		    				data[i].values[j].values[0].errorLO = +data[i].values[j].values[0][DependentVariable] - +data[i].values[j].values[0][errors];
@@ -264,26 +268,52 @@ function hibars(settings){
 		    x1.domain(data[0]['values'].map(function(d) { return d.key; })).rangeRound([0, x0.bandwidth()]);
 		    
 		    levelsoffactor = data[0]['values'].length;
-		    y.domain([Math.min(y_reference,d3.min(data, function(d) { 
-		        return d3.min(d.values, function(d) 
-		            { 
-		              return d3.min(d.values, function(d)
-		                {
-		                	return d["errorLO"];
-		                });
-		            }); 
-		    	})), 
-		    	Math.max(y_reference,d3.max(data, function(d) 
-		        { 
-			        return d3.max(d.values, function(d) 
+		    if (errors)
+		    {
+			    y.domain([Math.min(y_reference,d3.min(data, function(d) { 
+			        return d3.min(d.values, function(d) 
+			            { 
+			              return d3.min(d.values, function(d)
+			                {
+			                	return d["errorLO"];
+			                });
+			            }); 
+			    	})), 
+			    	Math.max(y_reference,d3.max(data, function(d) 
 			        { 
-			            return d3.max(d.values, function(d)
-			            {
-			                  return d["errorHI"];
-			            });
-			        }); 
-		        }))
-		    ]).nice();
+				        return d3.max(d.values, function(d) 
+				        { 
+				            return d3.max(d.values, function(d)
+				            {
+				                  return d["errorHI"];
+				            });
+				        }); 
+			        }))
+			    ]).nice();
+		    }
+		    else
+		    {
+		    	y.domain([Math.min(y_reference,d3.min(data, function(d) { 
+			        return d3.min(d.values, function(d) 
+			            { 
+			              return d3.min(d.values, function(d)
+			                {
+			                	return d[DependentVariable];
+			                });
+			            }); 
+			    	})), 
+			    	Math.max(y_reference,d3.max(data, function(d) 
+			        { 
+				        return d3.max(d.values, function(d) 
+				        { 
+				            return d3.max(d.values, function(d)
+				            {
+				                  return d[DependentVariable];
+				            });
+				        }); 
+			        }))
+			    ]).nice();
+		    }
 	    }
 	    else if (numfactors == 3)
 	    {
@@ -300,12 +330,12 @@ function hibars(settings){
 			        {
 			          for (k=0; k<data[i].values[j].values.length; k++)
 			          {
-			          	if ((errorLO) && (errorHI))
+			          	if ((errorLO) && (errorHI) && (errors))
 			          	{
 		    				data[i].values[j].values[k].values[0].errorHI = +data[i].values[j].values[k].values[0][errorHI];
 		    				data[i].values[j].values[k].values[0].errorLO = +data[i].values[j].values[k].values[0][errorLO];
 			          	}
-			          	else
+			          	else if (errors)
 			          	{
 		    				data[i].values[j].values[k].values[0].errorHI = +data[i].values[j].values[k].values[0][DependentVariable] + +data[i].values[j].values[k].values[0][errors];
 		    				data[i].values[j].values[k].values[0].errorLO = +data[i].values[j].values[k].values[0][DependentVariable] - +data[i].values[j].values[k].values[0][errors];
@@ -322,31 +352,62 @@ function hibars(settings){
 			xAxis2.scale(x1);
 			    
 			levelsoffactor = data[0]['values'][0]['values'].length;
-			y.domain([Math.min(y_reference,d3.min(data, function(d) { 
-		        return d3.min(d.values, function(d) 
-		            { 
-		              return d3.min(d.values, function(d)
-		                {
-		                  return d3.min(d.values, function(d)
-		                  {
-		                    return d["errorLO"];
-		                  });
-		                });
-		            }); 
-		          })), 
-		          Math.max(y_reference,d3.max(data, function(d) { 
-		          return d3.max(d.values, function(d) 
-		            { 
-		              return d3.max(d.values, function(d)
-		                {
-		                  return d3.max(d.values, function(d)
-		                  {
-		                    return d["errorHI"];
-		                  });
-		                });
-		            }); 
-		        }))
-		    ]).nice();
+			if (errors)
+			{
+				y.domain([Math.min(y_reference,d3.min(data, function(d) { 
+			        return d3.min(d.values, function(d) 
+			            { 
+			              return d3.min(d.values, function(d)
+			                {
+			                  return d3.min(d.values, function(d)
+			                  {
+			                    return d["errorLO"];
+			                  });
+			                });
+			            }); 
+			          })), 
+			          Math.max(y_reference,d3.max(data, function(d) { 
+			          return d3.max(d.values, function(d) 
+			            { 
+			              return d3.max(d.values, function(d)
+			                {
+			                  return d3.max(d.values, function(d)
+			                  {
+			                    return d["errorHI"];
+			                  });
+			                });
+			            }); 
+			        }))
+			    ]).nice();
+			}
+			else
+			{
+				y.domain([Math.min(y_reference,d3.min(data, function(d) { 
+			        return d3.min(d.values, function(d) 
+			            { 
+			              return d3.min(d.values, function(d)
+			                {
+			                  return d3.min(d.values, function(d)
+			                  {
+			                    return d[DependentVariable];
+			                  });
+			                });
+			            }); 
+			          })), 
+			          Math.max(y_reference,d3.max(data, function(d) { 
+			          return d3.max(d.values, function(d) 
+			            { 
+			              return d3.max(d.values, function(d)
+			                {
+			                  return d3.max(d.values, function(d)
+			                  {
+			                    return d[DependentVariable];
+			                  });
+			                });
+			            }); 
+			        }))
+			    ]).nice();				
+			}
 			
 			phasebuttonheight = Math.min(0.05*height, (height - data[0]['values'][0]['values'][0]['values'].length*legendboxsize*1.1)/16, 
     			(height - data[0]['values'][0]['values'].length*legendboxsize*1.1)/16, 
@@ -370,12 +431,12 @@ function hibars(settings){
 			          	{
 			            	for (l=0; l<data[i].values[j].values[k].values.length; l++)
 			              	{
-			              		if ((errorLO) && (errorHI))
+			              		if ((errorLO) && (errorHI) && (errors))
 			              		{
 		    						data[i].values[j].values[k].values[l].values[0].errorHI = +data[i].values[j].values[k].values[l].values[0][errorHI];
 		    						data[i].values[j].values[k].values[l].values[0].errorLO = +data[i].values[j].values[k].values[l].values[0][errorLO];
 			              		}
-			              		else 
+			              		else if (errors)
 			              		{
 		    						data[i].values[j].values[k].values[l].values[0].errorHI = +data[i].values[j].values[k].values[l].values[0][DependentVariable] + +data[i].values[j].values[k].values[l].values[0][errors];
 		    						data[i].values[j].values[k].values[l].values[0].errorLO = +data[i].values[j].values[k].values[l].values[0][DependentVariable] - +data[i].values[j].values[k].values[l].values[0][errors];
@@ -397,37 +458,74 @@ function hibars(settings){
 			    
 			    levelsoffactor = data[0]['values'][0]['values'][0]['values'].length;
 			        
-			    y.domain([Math.min(y_reference,d3.min(data, function(d) { 
-			          return d3.min(d.values, function(d) 
-			            { 
-			              return d3.min(d.values, function(d)
-			                {
-			                  return d3.min(d.values, function(d)
-			                  {
-			                    return d3.min(d.values, function(d)
-			                    {
-			                    	return d["errorLO"];
-			                    });
-			                  });
-			                });
-			            }); 
-			          })), 
-			        Math.max(y_reference,d3.max(data, function(d) { 
-			          return d3.max(d.values, function(d) 
-			            { 
-			              return d3.max(d.values, function(d)
-			              {
-			                return d3.max(d.values, function(d)
-			                {
-			                  return d3.max(d.values, function(d)
-			                  {
-			                    return d["errorHI"]; 
-			                  });
-			                });
-			              });
-			            }); 
-			        }))
-			    ]).nice();
+			    if (errors)
+			    {
+				    y.domain([Math.min(y_reference,d3.min(data, function(d) { 
+				          return d3.min(d.values, function(d) 
+				            { 
+				              return d3.min(d.values, function(d)
+				                {
+				                  return d3.min(d.values, function(d)
+				                  {
+				                    return d3.min(d.values, function(d)
+				                    {
+				                    	return d["errorLO"];
+				                    });
+				                  });
+				                });
+				            }); 
+				          })), 
+				        Math.max(y_reference,d3.max(data, function(d) { 
+				          return d3.max(d.values, function(d) 
+				            { 
+				              return d3.max(d.values, function(d)
+				              {
+				                return d3.max(d.values, function(d)
+				                {
+				                  return d3.max(d.values, function(d)
+				                  {
+				                    return d["errorHI"]; 
+				                  });
+				                });
+				              });
+				            }); 
+				        }))
+				    ]).nice();
+				}
+				else
+				{
+				    y.domain([Math.min(y_reference,d3.min(data, function(d) { 
+				          return d3.min(d.values, function(d) 
+				            { 
+				              return d3.min(d.values, function(d)
+				                {
+				                  return d3.min(d.values, function(d)
+				                  {
+				                    return d3.min(d.values, function(d)
+				                    {
+				                    	return d[DependentVariable];
+				                    });
+				                  });
+				                });
+				            }); 
+				          })), 
+				        Math.max(y_reference,d3.max(data, function(d) { 
+				          return d3.max(d.values, function(d) 
+				            { 
+				              return d3.max(d.values, function(d)
+				              {
+				                return d3.max(d.values, function(d)
+				                {
+				                  return d3.max(d.values, function(d)
+				                  {
+				                    return d[DependentVariable]; 
+				                  });
+				                });
+				              });
+				            }); 
+				        }))
+				    ]).nice();					
+				}
 	    }
 
 
@@ -467,7 +565,7 @@ function hibars(settings){
 	        	var textsize = this.getBBox(); 
 	          	var textwidth = textsize.width;
 	          	var textheight = textsize.height;
-	          	var restriction = Math.min(height/(textsize.width*1.1), 0.35*margin.left/(textsize.height*1.1));
+	          	var restriction = Math.min(height/(textsize.width*1.1), 0.35*margin.left/(textsize.height*1.1), 0.0225*chartwidth, 0.036*chartheight);
 	          	return restriction + "px";
 	    	});
 	  
@@ -564,11 +662,11 @@ function hibars(settings){
 		        .attr("stroke-width",0.002*chartheight);
 	    }
 
-	    axissize(".x0.axis text", x0.bandwidth()*0.95, 0.3*margin.bottom);	    
+	    axissize(".x0.axis text", x0.bandwidth()*0.95, 0.3*margin.bottom, Math.min(0.0225*chartwidth, 0.036*chartheight));	    
 	    
 	    if (numfactors > 2)
 	    {
-	    	axissize(".x1.axis text", x1.bandwidth()*0.95, 0.25*margin.bottom);
+	    	axissize(".x1.axis text", x1.bandwidth()*0.95, 0.25*margin.bottom, Math.min(0.0175*chartwidth, 0.028*chartheight));
 	    }
 
 	    svg.select("g.x.x0.axis")
@@ -779,64 +877,67 @@ function hibars(settings){
 	  		d3.selectAll(".tooltip").transition().duration(100).attr("fill-opacity",0).style("stroke-opacity",0).remove();
 	  	});
 
-	    var errorbars = bargroup.selectAll(".errorbars")
-	        .data(function(d) {return d.values; })
-	    	.enter().append("g")
-	    	.attr("class","errorbars")
-	    	.style("pointer-events","none")
-	    	.attr("transform", function(d) {var txt = baraxis(d.key) + baraxis.bandwidth()/2; return "translate(" + txt + ", 0 )"; });
+	  	if (errors)
+	  	{
+		    var errorbars = bargroup.selectAll(".errorbars")
+		        .data(function(d) {return d.values; })
+		    	.enter().append("g")
+		    	.attr("class","errorbars")
+		    	.style("pointer-events","none")
+		    	.attr("transform", function(d) {var txt = baraxis(d.key) + baraxis.bandwidth()/2; return "translate(" + txt + ", 0 )"; });
 
-	    errorbars
-	  		.append("line")
-	  		.attr("class","errorline")
-	  		.attr("stroke","black")
-	  		.attr("stroke-width",errorwidth)
-	  		.attr("x1",0)
-	  		.attr("y1",height)
-	  		.attr("x2",0)
-	  		.attr("y2",height)
-	  		.transition()
-	  		.duration(500)
-	  		.attr("x1",0)
-	  		.attr("y1",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
-	  		.attr("x2",0)
-	  		.attr("y2",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;});
+		    errorbars
+		  		.append("line")
+		  		.attr("class","errorline")
+		  		.attr("stroke","black")
+		  		.attr("stroke-width",errorwidth)
+		  		.attr("x1",0)
+		  		.attr("y1",height)
+		  		.attr("x2",0)
+		  		.attr("y2",height)
+		  		.transition()
+		  		.duration(500)
+		  		.attr("x1",0)
+		  		.attr("y1",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
+		  		.attr("x2",0)
+		  		.attr("y2",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;});
 
-		errorbars
-	  		.append("line")
-	  		.attr("class","errorline")
-	  		.attr("stroke","black")
-	  		.attr("stroke-width",errorwidth)
-	  		.attr("x1",-baraxis.bandwidth()/4)
-	  		.attr("y1",height)
-	  		.attr("x2",baraxis.bandwidth()/4)
-	  		.attr("y2",height)
-	  		.transition()
-	  		.duration(500)
-	  		.attr("x1",-baraxis.bandwidth()/4)
-	  		.attr("y1",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
-	  		.attr("x2",baraxis.bandwidth()/4)
-	  		.attr("y2",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
-	  		.attr("stroke","black")
-	  		.attr("stroke-width",errorwidth);
+			errorbars
+		  		.append("line")
+		  		.attr("class","errorline")
+		  		.attr("stroke","black")
+		  		.attr("stroke-width",errorwidth)
+		  		.attr("x1",-baraxis.bandwidth()/4)
+		  		.attr("y1",height)
+		  		.attr("x2",baraxis.bandwidth()/4)
+		  		.attr("y2",height)
+		  		.transition()
+		  		.duration(500)
+		  		.attr("x1",-baraxis.bandwidth()/4)
+		  		.attr("y1",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
+		  		.attr("x2",baraxis.bandwidth()/4)
+		  		.attr("y2",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
+		  		.attr("stroke","black")
+		  		.attr("stroke-width",errorwidth);
 
-		errorbars
-	  		.append("line")
-	  		.attr("class","errorline")
-	  		.attr("stroke","black")
-	  		.attr("stroke-width",errorwidth)
-	  		.attr("x1",-baraxis.bandwidth()/4)
-	  		.attr("y1",height)
-	  		.attr("x2",baraxis.bandwidth()/4)
-	  		.attr("y2",height)
-	  		.transition()
-	  		.duration(500)
-	  		.attr("x1",-baraxis.bandwidth()/4)
-	  		.attr("y1",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;})
-	  		.attr("x2",baraxis.bandwidth()/4)
-	  		.attr("y2",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;})
-	  		.attr("stroke","black")
-	  		.attr("stroke-width",errorwidth);
+			errorbars
+		  		.append("line")
+		  		.attr("class","errorline")
+		  		.attr("stroke","black")
+		  		.attr("stroke-width",errorwidth)
+		  		.attr("x1",-baraxis.bandwidth()/4)
+		  		.attr("y1",height)
+		  		.attr("x2",baraxis.bandwidth()/4)
+		  		.attr("y2",height)
+		  		.transition()
+		  		.duration(500)
+		  		.attr("x1",-baraxis.bandwidth()/4)
+		  		.attr("y1",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;})
+		  		.attr("x2",baraxis.bandwidth()/4)
+		  		.attr("y2",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;})
+		  		.attr("stroke","black")
+		  		.attr("stroke-width",errorwidth);
+		}
 
 	    var legend = svg.selectAll(".legend")
 	        .data(bardata.values)
@@ -886,8 +987,8 @@ function hibars(settings){
 	      //     return restriction + "px";
 	      // });
 	   
-	   	axissize("text.legendtext", margin.legend - legendboxsize, legendboxsize*0.8);
-		axissize("text.legendtitle", margin.legend*0.8, legendboxsize);
+	   	axissize("text.legendtext", margin.legend - legendboxsize, legendboxsize*0.8, Math.min(0.0225*chartwidth, 0.036*chartheight));
+		axissize("text.legendtitle", margin.legend*0.8, legendboxsize, Math.min(0.0225*chartwidth, 0.036*chartheight));
 		d3.selectAll("text.legendtitle").style("font-weight","bold");
 
 	   	if (show_controls == "yes")
@@ -1092,9 +1193,9 @@ function hibars(settings){
 		    }
 
 
-		  	axissize("text.morphtext", phasebuttonwidth*0.9, phasebuttonheight*0.95);
-		  	axissize("text.morphtext2", phasebuttonwidth*0.9, phasebuttonheight*0.95);
-		  	axissize("text.morphtext3", phasebuttonwidth*0.9, phasebuttonheight*0.95);
+		  	axissize("text.morphtext", phasebuttonwidth*0.9, phasebuttonheight*0.95, Math.min(0.0175*chartwidth, 0.028*chartheight));
+		  	axissize("text.morphtext2", phasebuttonwidth*0.9, phasebuttonheight*0.95, Math.min(0.0175*chartwidth, 0.028*chartheight));
+		  	axissize("text.morphtext3", phasebuttonwidth*0.9, phasebuttonheight*0.95, Math.min(0.0175*chartwidth, 0.028*chartheight));
 		  	d3.selectAll(".axiscontrolstitle text").style("font-weight","bold");
 		  	d3.selectAll(".fliptitle text").style("font-style","italic");
 		  	d3.selectAll(".redrawtitle text").style("font-style","italic");
@@ -1105,33 +1206,36 @@ function hibars(settings){
 		     	.on("click", function()
 		     	{ 
 		  			if (transitionstate == 0) {
-		  			transitionstate = 1;
-		  	
-			  		if (flipphase1 == 0) 
-			  		{
-			  			baraxis.rangeRound([prebaraxis.bandwidth(), 0]);
-			  			flipphase1 = 1;
-			  		} 
-			  		else if (flipphase1 == 1) 
-			  		{
-			  			baraxis.rangeRound([0, prebaraxis.bandwidth()]);
-			  			flipphase1 = 0; 
-			  		}
+			  			transitionstate = 1;
 			  	
-			  		bargroup.selectAll("rect")
-			  			.data(function(d) {return d.values; })
-			  			.transition()
-			     	  	.attr("width", baraxis.bandwidth())
-			        	.attr("x", function(d) {return baraxis(d.key); })
-			            .attr("y", function(d) {return y(Math.max(y_reference,d.values[0][DependentVariable])) + d.values[0].adj;})
-			            .attr("height", function(d) {return Math.abs(y(d.values[0][DependentVariable]) - y(y_reference)); })
-			        	.style("fill", function(d) { return color(d.key); });
-			      
-			      	bargroup.selectAll(".errorbars")
-			      		.data(function(d) {return d.values; })
-			    		.transition()
-			    		.attr("transform", function(d) {var txt = baraxis(d.key) + baraxis.bandwidth()/2; return "translate(" + txt + ", 0 )"; })
-			    		.call(function(){ transitionstate = 0; });
+				  		if (flipphase1 == 0) 
+				  		{
+				  			baraxis.rangeRound([prebaraxis.bandwidth(), 0]);
+				  			flipphase1 = 1;
+				  		} 
+				  		else if (flipphase1 == 1) 
+				  		{
+				  			baraxis.rangeRound([0, prebaraxis.bandwidth()]);
+				  			flipphase1 = 0; 
+				  		}
+				  	
+				  		bargroup.selectAll("rect")
+				  			.data(function(d) {return d.values; })
+				  			.transition()
+				     	  	.attr("width", baraxis.bandwidth())
+				        	.attr("x", function(d) {return baraxis(d.key); })
+				            .attr("y", function(d) {return y(Math.max(y_reference,d.values[0][DependentVariable])) + d.values[0].adj;})
+				            .attr("height", function(d) {return Math.abs(y(d.values[0][DependentVariable]) - y(y_reference)); })
+				        	.style("fill", function(d) { return color(d.key); })
+				        	.call(function(){ transitionstate = 0; });
+				      
+				      	if (errors)
+				      	{
+					      	bargroup.selectAll(".errorbars")
+					      		.data(function(d) {return d.values; })
+					    		.transition()
+					    		.attr("transform", function(d) {var txt = baraxis(d.key) + baraxis.bandwidth()/2; return "translate(" + txt + ", 0 )"; });
+					    }
 		  			}
 		  		});
 
@@ -1366,12 +1470,12 @@ function hibars(settings){
 			    	{
 			    		for (j=0; j<data[i].values.length; j++)
 			    		{
-			    			if ((errorLO) && (errorHI))
+			    			if ((errorLO) && (errorHI) && (errors))
 			    			{
 			    				data[i].values[j].values[0].errorHI = +data[i].values[j].values[0][errorHI];
 			    				data[i].values[j].values[0].errorLO = +data[i].values[j].values[0][errorLO];
 			    			}
-			    			else
+			    			else if (errors)
 			    			{
 				    			data[i].values[j].values[0].errorHI = +data[i].values[j].values[0][DependentVariable] + +data[i].values[j].values[0][errors];
 			    				data[i].values[j].values[0].errorLO = +data[i].values[j].values[0][DependentVariable] - +data[i].values[j].values[0][errors];
@@ -1398,12 +1502,12 @@ function hibars(settings){
 				        {
 				          for (k=0; k<data[i].values[j].values.length; k++)
 				          {
-				          	if ((errorLO) && (errorHI))
+				          	if ((errorLO) && (errorHI) && (errors))
 				          	{
 			    				data[i].values[j].values[k].values[0].errorHI = +data[i].values[j].values[k].values[0][errorHI];
 			    				data[i].values[j].values[k].values[0].errorLO = +data[i].values[j].values[k].values[0][errorLO];
 				          	}
-				          	else
+				          	else if (errors)
 				          	{
 			    				data[i].values[j].values[k].values[0].errorHI = +data[i].values[j].values[k].values[0][DependentVariable] + +data[i].values[j].values[k].values[0][errors];
 			    				data[i].values[j].values[k].values[0].errorLO = +data[i].values[j].values[k].values[0][DependentVariable] - +data[i].values[j].values[k].values[0][errors];
@@ -1435,12 +1539,12 @@ function hibars(settings){
 				          	{
 				            	for (l=0; l<data[i].values[j].values[k].values.length; l++)
 				              	{
-				              		if ((errorLO) && (errorHI))
+				              		if ((errorLO) && (errorHI) && (errors))
 				              		{
 			    						data[i].values[j].values[k].values[l].values[0].errorHI = +data[i].values[j].values[k].values[l].values[0][errorHI];
 			    						data[i].values[j].values[k].values[l].values[0].errorLO = +data[i].values[j].values[k].values[l].values[0][errorLO];
 				              		}
-				              		else 
+				              		else if (errors)
 				              		{
 			    						data[i].values[j].values[k].values[l].values[0].errorHI = +data[i].values[j].values[k].values[l].values[0][DependentVariable] + +data[i].values[j].values[k].values[l].values[0][errors];
 			    						data[i].values[j].values[k].values[l].values[0].errorLO = +data[i].values[j].values[k].values[l].values[0][DependentVariable] - +data[i].values[j].values[k].values[l].values[0][errors];
@@ -1467,8 +1571,8 @@ function hibars(settings){
 		  			})()
 		  		);
 		  		
-		  		svg.selectAll(".databar").transition().duration(500).attr("y",1000).transition().remove();
-		  		svg.selectAll(".errorline").transition().duration(500).attr("y1",1000).attr("y2",1000).transition().remove();
+		  		svg.selectAll(".databar").transition().duration(500).attr("y",height*2).transition().remove();
+		  		svg.selectAll(".errorline").transition().duration(500).attr("y1",height*2).attr("y2",height*2).transition().remove();
 
 		  	  	setTimeout(function(){
 			  		
@@ -1570,8 +1674,8 @@ function hibars(settings){
 					        .attr("stroke-width",0.002*chartheight);
 			  		}
 
-			   	 	axissize(".x0.axis text", x0.bandwidth()*0.95, 0.3*margin.bottom);
-			   	 	if (numfactors > 2) {axissize(".x1.axis text", x1.bandwidth()*0.95, 0.25*margin.bottom);}
+			   	 	axissize(".x0.axis text", x0.bandwidth()*0.95, 0.3*margin.bottom, Math.min(0.0225*chartwidth, 0.036*chartheight));
+			   	 	if (numfactors > 2) {axissize(".x1.axis text", x1.bandwidth()*0.95, 0.25*margin.bottom, Math.min(0.0175*chartwidth, 0.028*chartheight));}
 			    	if (numfactors > 3) {axissize(".x2.axis text", x2.bandwidth()*0.95, 0.2*margin.bottom, Math.min(0.0125*chartwidth, 0.02*chartheight));}
 
 			   	 	svg.select("g.x.x0.axis")
@@ -1733,65 +1837,68 @@ function hibars(settings){
 			  			//Remove the tooltip
 			  			d3.selectAll(".tooltip").transition().duration(100).attr("fill-opacity",0).style("stroke-opacity",0).remove();
 			  		});
-			  				
-		    		errorbars = bargroup.selectAll(".errorbars")
-		        		.data(function(d) {return d.values; })
-		    	 		.enter().append("g")
-		    	 		.attr("class","errorbars")
-		    	 		.style("pointer-events","none")
-		    	  		.attr("transform", function(d) {var txt = baraxis(d.key) + baraxis.bandwidth()/2; return "translate(" + txt + ", 0 )"; });
+			  			
+			  		if (errors)
+			  		{
+			    		errorbars = bargroup.selectAll(".errorbars")
+			        		.data(function(d) {return d.values; })
+			    	 		.enter().append("g")
+			    	 		.attr("class","errorbars")
+			    	 		.style("pointer-events","none")
+			    	  		.attr("transform", function(d) {var txt = baraxis(d.key) + baraxis.bandwidth()/2; return "translate(" + txt + ", 0 )"; });
 
-		    		errorbars
-		      			.append("line")
-		      			.attr("class","errorline")
-		      			.attr("stroke","black")
-		    	  		.attr("stroke-width",errorwidth)
-		    	  		.attr("x1",0)
-		    	  		.attr("y1",height)
-		    	  		.attr("x2",0)
-		    	  		.attr("y2",height)
-		      			.transition()
-		      			.duration(500)
-		    	  		.attr("x1",0)
-		    	  		.attr("y1",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
-		    	  		.attr("x2",0)
-		    	  		.attr("y2",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;});
-		    
-		    		errorbars
-		      			.append("line")
-		      			.attr("class","errorline")
-		      			.attr("stroke","black")
-		    	  		.attr("stroke-width",errorwidth)
-		    	  		.attr("x1",-baraxis.bandwidth()/4)
-		    	  		.attr("y1",height)
-		    	  		.attr("x2",baraxis.bandwidth()/4)
-		    	  		.attr("y2",height)
-		      			.transition()
-		      			.duration(500)
-		    	  		.attr("x1",-baraxis.bandwidth()/4)
-		    	  		.attr("y1",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
-		    	  		.attr("x2",baraxis.bandwidth()/4)
-		    	  		.attr("y2",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
-		    	  		.attr("stroke","black")
-		    	  		.attr("stroke-width",errorwidth);
-		    
-		    		errorbars
-		      			.append("line")
-		      			.attr("class","errorline")
-		      			.attr("stroke","black")
-		    	  		.attr("stroke-width",errorwidth)
-		    	  		.attr("x1",-baraxis.bandwidth()/4)
-		    	  		.attr("y1",height)
-		    	  		.attr("x2",baraxis.bandwidth()/4)
-		    	  		.attr("y2",height)
-		      			.transition()
-		      			.duration(500)
-		    	  		.attr("x1",-baraxis.bandwidth()/4)
-		    	  		.attr("y1",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;})
-		    	  		.attr("x2",baraxis.bandwidth()/4)
-		    	  		.attr("y2",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;})
-		    	  		.attr("stroke","black")
-		    	  		.attr("stroke-width",errorwidth);
+			    		errorbars
+			      			.append("line")
+			      			.attr("class","errorline")
+			      			.attr("stroke","black")
+			    	  		.attr("stroke-width",errorwidth)
+			    	  		.attr("x1",0)
+			    	  		.attr("y1",height)
+			    	  		.attr("x2",0)
+			    	  		.attr("y2",height)
+			      			.transition()
+			      			.duration(500)
+			    	  		.attr("x1",0)
+			    	  		.attr("y1",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
+			    	  		.attr("x2",0)
+			    	  		.attr("y2",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;});
+			    
+			    		errorbars
+			      			.append("line")
+			      			.attr("class","errorline")
+			      			.attr("stroke","black")
+			    	  		.attr("stroke-width",errorwidth)
+			    	  		.attr("x1",-baraxis.bandwidth()/4)
+			    	  		.attr("y1",height)
+			    	  		.attr("x2",baraxis.bandwidth()/4)
+			    	  		.attr("y2",height)
+			      			.transition()
+			      			.duration(500)
+			    	  		.attr("x1",-baraxis.bandwidth()/4)
+			    	  		.attr("y1",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
+			    	  		.attr("x2",baraxis.bandwidth()/4)
+			    	  		.attr("y2",function(d) {var txt = d.values[0]["errorHI"]; return y(txt) + d.values[0].adj;})
+			    	  		.attr("stroke","black")
+			    	  		.attr("stroke-width",errorwidth);
+			    
+			    		errorbars
+			      			.append("line")
+			      			.attr("class","errorline")
+			      			.attr("stroke","black")
+			    	  		.attr("stroke-width",errorwidth)
+			    	  		.attr("x1",-baraxis.bandwidth()/4)
+			    	  		.attr("y1",height)
+			    	  		.attr("x2",baraxis.bandwidth()/4)
+			    	  		.attr("y2",height)
+			      			.transition()
+			      			.duration(500)
+			    	  		.attr("x1",-baraxis.bandwidth()/4)
+			    	  		.attr("y1",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;})
+			    	  		.attr("x2",baraxis.bandwidth()/4)
+			    	  		.attr("y2",function(d) {var txt = d.values[0]["errorLO"]; return y(txt) + d.values[0].adj;})
+			    	  		.attr("stroke","black")
+			    	  		.attr("stroke-width",errorwidth);
+		    	  	}
 
 			        legend.data([]).exit().remove();
 
@@ -1829,8 +1936,8 @@ function hibars(settings){
 			    		.attr("class","legendtitle")
 			    		.style("font-weight","normal");
 
-			  		axissize("text.legendtext", margin.legend - legendboxsize, legendboxsize*0.8);
-			 		axissize("text.legendtitle", margin.legend*0.8, legendboxsize);
+			  		axissize("text.legendtext", margin.legend - legendboxsize, legendboxsize*0.8, Math.min(0.0225*chartwidth, 0.036*chartheight));
+			 		axissize("text.legendtitle", margin.legend*0.8, legendboxsize, Math.min(0.0225*chartwidth, 0.036*chartheight));
 			  		d3.selectAll("text.legendtitle").style("font-weight","bold");
 			        
 			        axiscontrolstitle
