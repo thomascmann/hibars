@@ -53,7 +53,7 @@ hibars({
 });
 ```
 
-If you have three factors, you must also include "factor3", and if you have four factors, you must also incldue "factor4".
+If you have three factors, you must also include "factor3", and if you have four factors, you must also include "factor4".
 
 ####*About the parameters*
 
