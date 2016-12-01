@@ -1,5 +1,5 @@
 # hibars  
-###v.1.3.3
+###v.1.3.4
 A javascript tool for creating hierarchical, interactive bar charts, just for fun. Built with <a href="https://d3js.org/">D3.js</a>. <br>Useful for plotting the means and standard errors from factorial ANOVAs with two, three, or four factors.
 
 ##About
@@ -11,9 +11,9 @@ For examples, see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tma
 
 ##Usage
 
-You can download Hibars and host it locally, or link from the CDN via rawgit. Minified final versions are in the "dist" folder (most recent and older). The latest version, 1.3.1, can be loaded externally by including the follow tag in your html header:
+You can download Hibars and host it locally, or link from the CDN via rawgit. Minified final versions are in the "dist" folder (most recent and older). The latest version, 1.3.4, can be loaded externally by including the follow tag in your html header:
 
-    <script src="https://cdn.rawgit.com/thomascmann/hibars/v1.3.1/hibars.min.js"></script>
+    <script src="https://cdn.rawgit.com/thomascmann/hibars/v1.3.4/hibars.min.js"></script>
 
 **Hibars requires D3 version 4:**
 
@@ -48,7 +48,8 @@ hibars({
 	auto_size: 'no',
 	controls: 'yes',
 	y_reference: 0,
-	errors: 'stderror'
+	errors: 'stderror',
+	show_errors: 'yes'
 });
 ```
 
@@ -104,6 +105,8 @@ This allows for the creation of a figure with up to 12 levels of the lowest fact
 **errors (*optional*):** Sets the name of the column in the CSV data file containing the error bar lengths, if different from "stderror." Defaults to "stderror".
 
 **errorLO** and **errorHI (*optional*):** Sets error bars with custom low and high endpoints, overriding the **errors** parameter. Allows the user to achieve different lengths for the low and high portions of the error bars. (Both **errorLO** and **errorHI** must be present for this to be honored.)
+
+**show_errors (*optional*):** "yes" or "no", default is "yes" if unspecified. Determines whether to include error bars in figure. "no" will override values specified in "errors", "errorLO", and "errorHI". 
 
 ###Structure of CSV file
 The CSV data file should have a list of headers in the first row. There should be one column for the dependent variable, one for the size of the +/- error bars (*this must ALWAYS be called "stderror" unless a different name is provided in the **errors** parameter*), and one column per factor. In each factor column, the values reflect the level of the factor. Each row must have a value in each column. For example:
