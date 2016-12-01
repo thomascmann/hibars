@@ -1,5 +1,10 @@
 # Changelog
 
+## v. 1.3.4
+
+Added "show_errors" parameter to allow error bars to be turned off
+<br>Adjusted sizing of text
+
 ## v. 1.3.3
 
 Fixed small bug
