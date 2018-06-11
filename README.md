@@ -1,15 +1,15 @@
 # hibars  
-###v.1.3.4
+### v.1.3.4
 A javascript tool for creating hierarchical, interactive bar charts, just for fun. Built with <a href="https://d3js.org/">D3.js</a>. <br>Useful for plotting the means and standard errors from factorial ANOVAs with two, three, or four factors.
 
-##About
+## About
 Hibars creates interactive SVG bar charts from CSV files containing the data to be plotted. The figures are "hierarchical" in that multiple factors can be specified on the X-axis, in a customizable hierarchy (see "Usage"). Each figure is created by a single function call, and is inserted into the page at a specified location.
 
 For examples, see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/">here</a>, <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/study3">here</a>, and <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/demo_package/">here</a>.
 
 <br>For a resizable version using auto_size: "yes", see <a target="_blank" href="http://autoweb2.psych.cornell.edu/tmann/Charts/demo_package/autosize">here</a> (try resizing the window).
 
-##Usage
+## Usage
 
 You can download Hibars and host it locally, or link from the CDN via rawgit. Minified final versions are in the "dist" folder (most recent and older). The latest version, 1.3.4, can be loaded externally by including the follow tag in your html header:
 
@@ -55,7 +55,7 @@ hibars({
 
 If you have three factors, you must also include "factor3", and if you have four factors, you must also include "factor4".
 
-####*About the parameters*
+#### *About the parameters*
 
 **location:** Specifies a location (e.g., a \<div\>) where the figure should be appended. Currently, this must be an **element id.**
 
@@ -108,7 +108,7 @@ This allows for the creation of a figure with up to 12 levels of the lowest fact
 
 **show_errors (*optional*):** "yes" or "no", default is "yes" if unspecified. Determines whether to include error bars in figure. "no" will override values specified in "errors", "errorLO", and "errorHI". 
 
-###Structure of CSV file
+### Structure of CSV file
 The CSV data file should have a list of headers in the first row. There should be one column for the dependent variable, one for the size of the +/- error bars (*this must ALWAYS be called "stderror" unless a different name is provided in the **errors** parameter*), and one column per factor. In each factor column, the values reflect the level of the factor. Each row must have a value in each column. For example:
 
     Room,Condition,Dependent Variable,stderror
@@ -121,9 +121,9 @@ The CSV data file should have a list of headers in the first row. There should b
     Black Room,Control,-40,10
     Black Room,Experimental,130,12
 
-##Demo Package
+## Demo Package
 If you download the contents of the "demo_package" folder and place them as-is on a server, the index.html page will show some example figures with Hibars.
   
-##Updates
+## Updates
 
 Hibars is a personal side project which I am making available in case anyone finds it useful. As such, it will be updated infrequently, but feel free to offer suggestions for improvement!
